@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DC-Tech</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #075df1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff7f50;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 85%;
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #075df1;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .social-buttons {
+            margin-top: 20px;
+        }
+
+        .social-button {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .social-button img {
+            max-width: 30px;
+            vertical-align: middle;
+            margin-right: 5px;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        .error {
+            color: #075df1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>INICIO</h1>
+        <form action="/registro/registrar" method="POST">
+            <label for="email"></label>
+            <input type="email" id="email" name="email" required placeholder="Ingrese su correo">
+            <br>
+            <label for="password"></label>
+            <input type="password" id="password" name="password" required placeholder="Ingrese su Contraseña">
+            <br>
+
+        </form>
+        
+        <div class="social-buttons">
+            <button class="social-button" id="google-login-button" onclick="handleGoogleLogin()">
+                <img src="/public/images/google.png" alt="Google">
+            </button>
+            <button class="social-button" id="facebook-login-button" onclick="handleFacebookLogin()">
+                <img src="/public/images/facebook.png" alt="Facebook">
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>
