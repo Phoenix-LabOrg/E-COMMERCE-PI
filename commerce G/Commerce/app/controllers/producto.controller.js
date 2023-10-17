@@ -1,7 +1,7 @@
 
 //esto todavia no ha sido implementado al proyecto
 
-const database = require("./database");
+const pool = require("./database");
 
 export const getEmployees = async (req, res) => {
   try {
