@@ -1,13 +1,16 @@
-//get /post
+//declaro variables con sus respectivas bibliotecas y extensiones a usar
 const express = require('express');
-const database = require("./app/database");
+const database = require("./app/database"); //get/post
+const app = express(); //get/post
+const bodyParser = require('body-parser'); //post
+
 //post
-const bodyParser = require('body-parser');
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json());
 
 
-const app = express();
+
 app.set("port",3000);
 app.listen(app.get("port"));
 console.log("comunicación exitosa a traves del puerto",app.get("port"));
@@ -37,12 +40,8 @@ app.get("/productos", async (req, res) => {
 });
 
 
-
-
-
-
-
-app.post(('/registrar'), async (req, res) => {
+//mi original
+/*app.post(('/registrar'), async (req, res) => {
   // Accede a los datos del formulario a través de req.body
   const {username, email, password} =  req.body;
 
@@ -65,5 +64,39 @@ app.post(('/registrar'), async (req, res) => {
 			}
     });
     //redireccionar a otra pagina/ proximamente
-});
+});*/
     
+
+app.post(('/registrar'), async (req, res) => {
+  // Accede a los datos del formulario a través de req.body
+
+  const username =  req.body.username;
+  const email =  req.body.email;
+  const password =  req.body.password;
+  const password2 =  req.body.password2;
+  const usuario = {username, email, password};
+
+  // Verificar si las contraseñas son iguales
+  if (password !== password2) {
+    return res.status(400).send("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
+  } else {
+
+    console.log(req.body);
+  
+    const connection = await database.getConnection();
+  
+      // Ahora puedes insertar los datos en la base de datos.
+      connection.query('INSERT INTO usuarios SET ?', usuario, (error, result) => {
+        if(error)
+        {
+          
+          throw error;
+        }
+        else
+        {
+          //devolvemos el id del usuario insertado
+        }
+      });
+  }
+
+});
