@@ -1,11 +1,15 @@
+// creamos un array que contendra todos los productos
 let productos = [];
 
+//
 fetch("/productos")
     .then(response => response.json())
     .then(data => {
         productos = data;
         cargarProductos(productos);
     })
+
+    //codigo Juani //usamos un archivo .Json que contiene los datos necesarios de cada producto 
 // fetch("./js/productos.json")
 //     .then(response => response.json())
 //     .then(data => {

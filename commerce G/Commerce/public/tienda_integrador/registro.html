@@ -77,14 +77,18 @@
     <div class="container">
         <h1>REGISTRO</h1>
         <form action="/registrar" method="POST">
-            <label for="nombre"></label>
-            <input type="text" id="username" name="username" required placeholder="Ingrese su nombre">
+            <label for="username"></label>
+            <input type="text" id="username" name="username" required placeholder="Ingrese su nombre" autofocus>
             <br>
             <label for="email"></label>
             <input type="email" id="email" name="email" required placeholder="Ingrese su correo">
             <br>
             <label for="password"></label>
             <input type="password" id="password" name="password" required placeholder="Ingrese su Contraseña">
+            <br>
+            <label for="password2"></label>
+            <input type="password" id="password2" name="password2" required placeholder="Repetir su Contraseña">
+            <br>
             <input type="submit" value="Registrarse">
         </form>
         <div class="social-buttons">
