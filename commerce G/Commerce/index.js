@@ -5,7 +5,6 @@ const app = express(); //get/post
 const bodyParser = require('body-parser'); //post
 
 //post
-
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json());
 
@@ -18,7 +17,7 @@ console.log("comunicación exitosa a traves del puerto",app.get("port"));
 // Estableciendo directorio accesible por usuario
 app.use(express.static(__dirname + "/public/tienda_integrador"));
 
-
+//ARRAY DE PRODUCTOS
 app.get("/productos", async (req, res) => {
   try {
     const connection = await database.getConnection();
@@ -39,34 +38,8 @@ app.get("/productos", async (req, res) => {
   }
 });
 
-
-//mi original
-/*app.post(('/registrar'), async (req, res) => {
-  // Accede a los datos del formulario a través de req.body
-  const {username, email, password} =  req.body;
-
-  const usuario = {username, email, password};
-
-  console.log(req.body);
-
-  const connection = await database.getConnection();
-
-    // Ahora puedes insertar los datos en la base de datos.
-    connection.query('INSERT INTO usuarios SET ?', usuario, function(error, result) {
-      if(error)
-			{
-				
-				throw error;
-			}
-			else
-			{
-				//devolvemos el id del usuario insertado
-			}
-    });
-    //redireccionar a otra pagina/ proximamente
-});*/
     
-
+// REGISTRO DEL USUARIO
 app.post(('/registrar'), async (req, res) => {
   // Accede a los datos del formulario a través de req.body
 
@@ -86,7 +59,7 @@ app.post(('/registrar'), async (req, res) => {
     const connection = await database.getConnection();
   
       // Ahora puedes insertar los datos en la base de datos.
-      connection.query('INSERT INTO usuarios SET ?', usuario, (error, result) => {
+      await connection.query('INSERT INTO usuarios SET ?', usuario, (error, result) => {
         if(error)
         {
           
@@ -97,6 +70,7 @@ app.post(('/registrar'), async (req, res) => {
           //devolvemos el id del usuario insertado
         }
       });
+    return res.send("Usuario Registrado exitosamente");
   }
 
 });

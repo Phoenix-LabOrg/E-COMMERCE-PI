@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); // Requerimos Express para crear rutas
 const router = express.Router(); // Metodo para devolver un objeto
 
 router.get('/', (req, res) => {
