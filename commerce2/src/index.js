@@ -1,48 +1,49 @@
-const express = require('express');
-const morgan = require('morgan')
-const exphbs = require('express-handlebars')
-const path = require('path') //trabajar con directorios
+const express = require('express');  // Inicializamos express y asignamos a una variable
+const morgan = require('morgan');
+const {engine} = require('express-handlebars'); //cuidar esta sintaxis //tutorial falla aqui
+const path = require('path'); //trabajar con directorios //utilizo el modulo path
 
 //initializations / inicializaciones
-const app = express();
+const app = express(); // Ejecución de express y guardamos el objeto () en variable
 
-//settings / configuraciones
-app.set('port',process.env.port || 3000);
+//settings / configuraciones que necesita mi servidor de express
+app.set('port',process.env.port || 3000); // puerto en el que va despegar mi aplicación /toma un puerto por defecto o el puerto 3000
 app.set('views', path.join(__dirname, 'views')); //join nos permite encontrar la carpeta views en este caso
-app.engine('.hbs', exphbs({
+app.engine('.hbs', engine({
     defaultLayout: 'main',
-    layoutsDir: path.join(app.get('views'), 'layouts'), //join nos permite encontrar la carpeta layouts en views
+    layoutsDir: path.join(app.get('views'), 'layouts'), // path: nos permite unir directorios //join nos permite encontrar la carpeta layouts en views
     partialsDir: path.join(app.get('views'), 'partials'), //pedazos de codigos que podemos reutilizar en nuestras vistas
     extname: '.hbs', //nombre que tendran los archivos de handlebars
-    helpers: require('./lib/handlebars') //funciones para
-})) // herramienta handlebars
-app.set('views engine', '.hbs'); // configuracion para utilizar nuestro motor
+    helpers: require('./lib/handlebars') //funciones para procesar una fecha u utro servicio fuera de lo que es handlebars
+})); // herramienta handlebars
+app.set('view engine', '.hbs'); // configuracion para utilizar nuestro motor
 
 // Middlewares /funciones que se ejecutan cuando un usuario envia una peticion
-app.use(morgan('dev'));
+app.use(morgan('dev'));  // Muestra las peticiones que van llegando desde el servidor /dev -> parametro
 app.use(express.urlencoded({extended: false})); //urluncode poder aceptar formularios y datos enviados por usuarios /false: no acepta imagenes
 app.use(express.json());
 
-//Global Variables
+//Global Variables / Variables que toda mi aplicación necesita /ej: Información del usuario
 //middlewares global
 app.use((req, res, next) => { //request /response /next
-    
+    app.locals.success = req.flash('success');
+    app.locals.message = req.flash('message');
+    app.locals.user = req.user;
     next(); //toma información del usuario, lo que el servidor quiere responder, y una orden para continuar con el resto de codigo
-
 });
 
-//Routes 
+//Routes  / URL de nuestro servidor
 //-principales
-app.use(require('./routes')); // busca de modo automatico index.js
+app.use(require('./routes')); // busca de modo automatico index.js al llamarse de esta forma // Desde la carpeta routes solicito mi archivo 'index.js'
 //-para autentificar al usuario
 app.use(require('./routes/authentication'));
 //-para enlaces (links) /signout/singin/logout/login
-app.use('/links',require('./routes/links'));
+app.use('/links',require('./routes/links')); 
 
-//Public
+//Public / Archivos públicos:aquel código al que el navegador puede acceder
 app.use(express.static(path.join(__dirname,'public')));
 
 // Starting the Server
-app.listen(app.get('port'),() => {
+app.listen(app.get('port'),() => { //usamos el puerto que definimos anteriormente (app.get('port'))
     console.log('Server on port', app.get('port'));
 })
