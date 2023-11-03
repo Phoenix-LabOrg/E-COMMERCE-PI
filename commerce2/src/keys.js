@@ -1,3 +1,6 @@
+// const dotenv = require("dotenv");
+// dotenv.config();
+
 module.exports = {
 
     database: {
@@ -9,25 +12,14 @@ module.exports = {
     
 };
 
-
-
-
-
-
-// const mysql = require("promise-mysql");
-// const dotenv = require("dotenv");
-// dotenv.config();
-
-
-// const connection = mysql.createConnection({
-//     host:process.env.host || "",
-//     user:process.env.user || "",
-//     database:process.env.database || "",
-//     password:process.env.password || ""
-// });
-
-// const getConnection = () => connection;
-
 // module.exports = {
-//     getConnection
+
+//     database: {
+//         connectionLimit: 10,
+//         host:process.env.host || 'localhost',
+//         user:process.env.user || 'root',
+//         password:process.env.password || 'admin',
+//         database:process.env.database || 'commerce2'
+//     }
+    
 // };
