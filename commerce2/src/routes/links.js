@@ -1,12 +1,23 @@
-// Ruta para guardar enlaces, utilizarlos o eliminarlos //no aplica a nuestro proyecto
-
+const database = require('../database');
 const express = require('express');
-const router = express.Router();
+const app = express();
 
-const pool = require('../database') //solo le cambio de nombre
-
-router.get('/add', (req, res) => {
-    res.render('links/add') //render/para recibir desde el servidor
-})
-
-module.exports = router;
+app.get("/productos", async (req, res) => {
+    try {
+      const connection = await database.getConnection();
+      const result = await connection.query("SELECT * FROM productos");
+      const productos = result.map((producto) => ({
+        id: producto.producto_id,
+        titulo: producto.titulo,
+        imagen: producto.imagen,
+        categoria: {
+          nombre: producto.categoria_nombre,
+          id: producto.categoria_id
+        },
+        precio: producto.precio
+      }));
+      res.json(productos);
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred while fetching products.' });
+    }
+  });
