@@ -8,4 +8,8 @@ router.get('/', async (req, res) => {
     res.render('index');
 });
 
+router.get('/carrito.hbs', async (req, res) => {
+    res.render('carrito.hbs');
+});
+
 module.exports = router;

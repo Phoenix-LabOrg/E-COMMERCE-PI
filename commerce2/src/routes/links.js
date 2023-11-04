@@ -1,8 +1,10 @@
-const database = require('../database');
 const express = require('express');
-const app = express();
+const router = express.Router();
 
-app.get("/productos", async (req, res) => {
+const database = require('../databases');
+// const pool = require('../database');
+
+router.get("/productos", async (req, res) => {
     try {
       const connection = await database.getConnection();
       const result = await connection.query("SELECT * FROM productos");
@@ -21,3 +23,6 @@ app.get("/productos", async (req, res) => {
       res.status(500).json({ error: 'An error occurred while fetching products.' });
     }
   });
+
+
+module.exports = router;
