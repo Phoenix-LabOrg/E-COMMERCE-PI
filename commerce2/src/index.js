@@ -2,6 +2,8 @@ const express = require('express');  // Inicializamos express y asignamos a una 
 const morgan = require('morgan');
 const {engine} = require('express-handlebars'); //cuidar esta sintaxis //tutorial falla aqui
 const path = require('path'); //trabajar con directorios //utilizo el modulo path
+const { Result } = require('express-validator');
+// const database = require("./database"); 
 
 
 //initializations / inicializaciones
@@ -63,7 +65,7 @@ app.use(require('./routes/index')); // busca de modo automatico index.js al llam
 
 //NECESITA BORRAR/CORRREGIRSE
 
-// app.use('/links', require('./routes/links'));
+app.use('/links', require('./routes/links'));
 
 //Public / Archivos públicos:aquel código al que el navegador puede acceder
 app.use(express.static(path.join(__dirname,'public')));

@@ -6,10 +6,11 @@ module.exports = {
     database: {
         host: 'localhost',
         user: 'root',
-        password: 'admin',
-        database: 'commerce2'
+        database: 'commerce2',
+        password: 'admin'
+        
     }
-    
+
 };
 
 // module.exports = {
