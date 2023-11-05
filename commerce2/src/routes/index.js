@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     res.render('index');
 });
 
-router.get('/carrito.hbs', async (req, res) => {
+router.get('/carrito', async (req, res) => {
     res.render('carrito.hbs');
 });
 

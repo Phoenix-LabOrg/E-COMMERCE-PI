@@ -1,16 +1,18 @@
 const passport = require('passport');
-const localStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
+
 
 const pool = require('../database');
 const helpers = require('../lib/helpers');
+const { matchPassword } = require('../lib/helpers')
 
-passport.use('local.signin', new localStrategy({
+passport.use('local.signin', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: 'true'
     }, async (req, username, password, done) => {
         console.log(req.body); // para ir conociendo como avanza y que se recibe
-        pool.query('SELECT * FROM users WHERE username = ?', [username]);
+        pool.query('SELECT * FROM usuarios WHERE username = ?', [username]);
         if (rows.length > 0) {
             const user = rows[0];
             const validPassword = await helpers.matchPassword(password, user.password);
@@ -24,37 +26,54 @@ passport.use('local.signin', new localStrategy({
         }
 }));
 
-passport.use('local.signup', new localStrategy({
-    usernameField: 'username', 
-    passportField: 'password',
-    passReqCallback: true
+// passport.use('local.signup', new localStrategy({ 
+//     usernameField: 'username',
+//     passportField: 'password',
+//     passReqCallback: true
+// }, async (req, username, password, done) => {
+//     console.log(req.body);
+//     const { fullname, email } = req.body;
+//     let usuario = {
+//         fullname,
+//         username,
+//         email,
+//         password
+//     };
+passport.use('local.signup', new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',  // En lugar de 'passportField', debe ser 'passwordField'
+    passReqToCallback: true      // En lugar de 'passReqCallback', debe ser 'passReqToCallback'
 }, async (req, username, password, done) => {
-    const { fullname } = req.body;
-    const newUser = {
+    console.log(req.body);
+    const { fullname, email } = req.body;
+    let usuario = {
+        fullname,
         username,
-        password,
-        fullname
+        email,
+        password
     };
-
-    newUser.password = await helpers.encryptPassword(password); //usamos nuestro metodo en helpers para cifrar una de las variables
-    const result = await pool.query('INSERT INTO users SET ?', [newUser]) //conexion/usuario 
+    usuario.password = await helpers.encryptPassword(password); //usamos nuestro metodo en helpers para cifrar una de las variables
+    const result = await pool.query('INSERT INTO usuarios SET ?', [usuario]) //conexion/usuario 
     
     //aqui asignaremos un Id a mi usuario creado /vemos en propiedades de newUser y vemos este insertId
-    newUser.id = result.insertId;
-    return done(null, newUser); //utilizamos metodo creado para redirigir
-
+    usuario.id = result.insertId;
+    return done(null, usuario); //utilizamos metodo creado para redirigir
 }));
 
 //usando passport (middleware)
 // serializar usuario 
 
-//https://youtu.be/qJ5R9WTW0_E?t=10055 //para guardar el usuario en session ??
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
 // Deserializar usuario /consultar para saber si mi user id existe
 passport.deserializeUser(async (id, done) => {
-    pool.query('SELECT * FROM users where id = ?', [id]);
-    done(null, rows[0]); //null para error / 0 para escojer el indice 0 de un objeto
-});
+    const rows = await pool.query('SELECT * FROM usuarios WHERE id = ?', [id]);
+    done(null, rows[0]);
+  });
+
+
+
+// import { matchPassword } from "./helpers.js";
+
