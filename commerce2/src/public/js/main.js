@@ -1,6 +1,6 @@
 // TIENDA
 
-fetch("/links/productos")
+fetch("/itemsTienda/productos")
     .then(response => response.json())
     .then(data => {
         productos = data;
@@ -10,7 +10,7 @@ fetch("/links/productos")
 const contenedorProductos = document.querySelector("#contenedor-productos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
 const tituloPrincipal = document.querySelector("#titulo-principal");
-let botonesAgregar = document.querySelectorAll(".producto-agregar");
+botonesAgregar = document.querySelectorAll(".producto-agregar");
 const numerito = document.querySelector("#numerito");
 
 
@@ -70,9 +70,9 @@ function actualizarBotonesAgregar() {
     });
 }
 
-let productosEnCarrito;
+// productosEnCarrito;
 
-let productosEnCarritoLS = localStorage.getItem("productos-en-carrito");
+productosEnCarritoLS = localStorage.getItem("productos-en-carrito");
 
 if (productosEnCarritoLS) {
     productosEnCarrito = JSON.parse(productosEnCarritoLS);
@@ -120,6 +120,6 @@ function agregarAlCarrito(e) {
 }
 
 function actualizarNumerito() {
-    let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     numerito.innerText = nuevoNumerito;
 }

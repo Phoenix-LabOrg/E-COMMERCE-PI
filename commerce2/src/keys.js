@@ -1,26 +1,15 @@
-// const dotenv = require("dotenv");
-// dotenv.config();
+const dotenv = require("dotenv");
+dotenv.config();
 
 module.exports = {
 
     database: {
-        host: 'localhost',
-        user: 'root',
-        database: 'commerce2',
-        password: 'admin'
+        connectionLimit: 10,
+        host:process.env.host || 'localhost',
+        user:process.env.user || 'root',
+        database:process.env.database || 'commerce2',
+        password:process.env.password || 'admin'
         
     }
-
-};
-
-// module.exports = {
-
-//     database: {
-//         connectionLimit: 10,
-//         host:process.env.host || 'localhost',
-//         user:process.env.user || 'root',
-//         password:process.env.password || 'admin',
-//         database:process.env.database || 'commerce2'
-//     }
     
-// };
+};
