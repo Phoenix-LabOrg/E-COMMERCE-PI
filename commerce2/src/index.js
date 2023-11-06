@@ -3,10 +3,9 @@ const morgan = require('morgan');
 const {engine} = require('express-handlebars'); //cuidar esta sintaxis //tutorial falla aqui
 const path = require('path'); //trabajar con directorios //utilizo el modulo path
 const flash = require('connect-flash'); //para middlewares
-const validator = require('express-validator');
 const session = require('express-session');
 const passport = require('passport');
-const MySQLStore= require('express-mysql-session');
+const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require('body-parser');
 
 const {database} = require('./keys')
@@ -38,7 +37,7 @@ app.use(session({
     secret: 'phoenix',
     resave: false, //para que no se renueve la session
     saveUninitialized: false, //para que no se vuelva a establecer la session
-    // store: new MySQLStore(database) //donde se guarda la session /en base de datos
+    store: new MySQLStore(database) //donde se guarda la session /en base de datos
 }));
 
 app.use(flash());
@@ -48,7 +47,7 @@ app.use(bodyParser.json()); //aplicacion cliente enviando y recibiendo json
 
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(validator());
+
 
 // Global Variables / Variables que toda mi aplicación necesita /ej: Información del usuario
 // middlewares global
