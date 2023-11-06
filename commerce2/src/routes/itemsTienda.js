@@ -5,5 +5,4 @@ const renderItems = require('../controllers/itemsTienda');
 router.get("/productos", renderItems);
 
 
-
 module.exports = router;

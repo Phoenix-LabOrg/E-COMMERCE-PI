@@ -1,44 +1,35 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-
 const pool = require('../database');
 const helpers = require('../lib/helpers');
-const { matchPassword } = require('../lib/helpers')
 
 passport.use('local.signin', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
-    passReqToCallback: 'true'
-    }, async (req, username, password, done) => {
-        console.log(req.body); // para ir conociendo como avanza y que se recibe
-        pool.query('SELECT * FROM usuarios WHERE username = ?', [username]);
+    passReqToCallback: true
+}, async (req, username, password, done) => {
+    console.log(req.body);
+    pool.query('SELECT * FROM usuarios WHERE username = ?', [username], async (error, rows) => {
+        if (error) {
+            return done(error);
+        }
+
         if (rows.length > 0) {
             const user = rows[0];
             const validPassword = await helpers.matchPassword(password, user.password);
+
             if (validPassword) {
-                done(null, user, req.flash('success', Welcome + user.username));
+                return done(null, user); // Solo pasamos el usuario autenticado
             } else {
-                done(null, user, req.flash('message', 'Incorrect Password'));
+                return done(null, false, req.flash('message', 'Incorrect Password'));
             }
-        }else {
+        } else {
             return done(null, false, req.flash('message', 'The Username does not exist'));
         }
+    });
 }));
 
-// passport.use('local.signup', new localStrategy({ 
-//     usernameField: 'username',
-//     passportField: 'password',
-//     passReqCallback: true
-// }, async (req, username, password, done) => {
-//     console.log(req.body);
-//     const { fullname, email } = req.body;
-//     let usuario = {
-//         fullname,
-//         username,
-//         email,
-//         password
-//     };
 passport.use('local.signup', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',  // En lugar de 'passportField', debe ser 'passwordField'
@@ -77,3 +68,17 @@ passport.deserializeUser(async (id, done) => {
 
 // import { matchPassword } from "./helpers.js";
 
+
+// passport.use('local.signup', new localStrategy({ 
+//     usernameField: 'username',
+//     passportField: 'password',
+//     passReqCallback: true
+// }, async (req, username, password, done) => {
+//     console.log(req.body);
+//     const { fullname, email } = req.body;
+//     let usuario = {
+//         fullname,
+//         username,
+//         email,
+//         password
+//     };
