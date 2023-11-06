@@ -1,4 +1,5 @@
 // TIENDA
+let productos = [];
 
 fetch("/itemsTienda/productos")
     .then(response => response.json())
@@ -10,7 +11,7 @@ fetch("/itemsTienda/productos")
 const contenedorProductos = document.querySelector("#contenedor-productos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
 const tituloPrincipal = document.querySelector("#titulo-principal");
-botonesAgregar = document.querySelectorAll(".producto-agregar");
+let botonesAgregar = document.querySelectorAll(".producto-agregar");
 const numerito = document.querySelector("#numerito");
 
 
@@ -70,9 +71,9 @@ function actualizarBotonesAgregar() {
     });
 }
 
-// productosEnCarrito;
+let productosEnCarrito;
 
-productosEnCarritoLS = localStorage.getItem("productos-en-carrito");
+let productosEnCarritoLS = localStorage.getItem("productos-en-carrito");
 
 if (productosEnCarritoLS) {
     productosEnCarrito = JSON.parse(productosEnCarritoLS);
@@ -91,17 +92,17 @@ function agregarAlCarrito(e) {
         position: "right", // `left`, `center` or `right`
         stopOnFocus: true, // Prevents dismissing of toast on hover
         style: {
-          background: "linear-gradient(to right, #4b33a8, #785ce9)",
-          borderRadius: "2rem",
-          textTransform: "uppercase",
-          fontSize: ".75rem"
+            background: "linear-gradient(to right, #4b33a8, #785ce9)",
+            borderRadius: "2rem",
+            textTransform: "uppercase",
+            fontSize: ".75rem"
         },
         offset: {
             x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
             y: '1.5rem' // vertical axis - can be a number or a string indicating unity. eg: '2em'
-          },
+            },
         onClick: function(){} // Callback after click
-      }).showToast();
+        }).showToast();
 
     const idBoton = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idBoton);
@@ -120,6 +121,6 @@ function agregarAlCarrito(e) {
 }
 
 function actualizarNumerito() {
-    nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     numerito.innerText = nuevoNumerito;
 }
