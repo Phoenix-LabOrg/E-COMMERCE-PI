@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const { promisify } = require('util');
 // con este modulo mysql tengo que utilizar callback ya que no soporta promesas async await
 // modulo de callback que me permitira soportar promesas 'util' biblioteca de node /metodo promisify

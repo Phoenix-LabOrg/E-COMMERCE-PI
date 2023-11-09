@@ -44,6 +44,10 @@ function cargarProductos(productosElegidos) {
 }
 
 
+
+
+
+
 botonesCategorias.forEach(boton => {
     boton.addEventListener("click", (e) => {
 

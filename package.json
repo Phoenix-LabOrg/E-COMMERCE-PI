@@ -1,0 +1,20 @@
+{
+  "name": "commercephoenix",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Phoenix-LabOrg/E-COMMERCE-PI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Phoenix-LabOrg/E-COMMERCE-PI/issues"
+  },
+  "homepage": "https://github.com/Phoenix-LabOrg/E-COMMERCE-PI#readme",
+  "keywords": [],
+  "description": ""
+}
