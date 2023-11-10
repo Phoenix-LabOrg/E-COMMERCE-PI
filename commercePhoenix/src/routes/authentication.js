@@ -49,12 +49,17 @@ router.post('/signin', [
 // });
 
 // LOGOUT
+
+router.get('/closeSession', isLoggedIn, (req, res) => {
+  res.render('auth/closeSession');
+});
 router.get('/logout', isLoggedIn, logout = (req, res, next) => {
   req.logout(function (err) { //metodo de passport nos permite limpiar la session
     if (err) return next(err);
     res.redirect("/");
   });
 });
+
 
 router.get('/carrito', isLoggedIn, (req, res) => {
   res.render('carrito');
