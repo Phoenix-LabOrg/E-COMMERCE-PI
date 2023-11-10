@@ -8,6 +8,7 @@ const passport = require('passport');
 const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require('body-parser');
 
+
 const {database} = require('./keys')
 
 //initializations / inicializaciones
