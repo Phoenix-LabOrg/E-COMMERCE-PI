@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const passport = require('passport');
-const { isLoggedIn } = require('../lib/auth');
+const { isLoggedIn, isNotLoggedIn } = require('../lib/auth');
 
 const { body, validationResult } = require('express-validator');
 
@@ -44,15 +44,12 @@ router.post('/signin', [
   })(req, res, next);
 });
 
-// router.get('/carrito', isLoggedIn, (req, res) => {
-//   res.render('');
-// });
-
 // LOGOUT
 
-router.get('/closeSession', isLoggedIn, (req, res) => {
+router.get('/closeSession', isNotLoggedIn, (req, res) => {
   res.render('auth/closeSession');
 });
+
 router.get('/logout', isLoggedIn, logout = (req, res, next) => {
   req.logout(function (err) { //metodo de passport nos permite limpiar la session
     if (err) return next(err);
