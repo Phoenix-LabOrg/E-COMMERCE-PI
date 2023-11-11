@@ -12,7 +12,7 @@ router.get('/carrito', isLoggedIn, async (req, res) => {
     res.render('carrito.hbs');
 });
 
-router.get('/quieneSomos', isLoggedIn, async (req, res) => {
+router.get('/quieneSomos', async (req, res) => {
     res.render('quieneSomos.hbs');
 });
 
