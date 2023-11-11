@@ -29,11 +29,12 @@
     background: var(--clr-main);
     width: 100vw;
     display: flex;
+    font-size: .65rem;
 }
 
 .nav-link {
     text-align: center;
-    margin-left: 5%;
+    margin-left: 8%;
     justify-content: center;
     display: flex;
     border: 0;
@@ -350,6 +351,7 @@ main {
     }
 
     .aside-visible {
+        height: 100vw;
         transform: translateX(0);
         opacity: 1;
         visibility: visible;
@@ -422,7 +424,6 @@ main {
 
     .nav-item {
         display: flex;
-        margin: 5%;
     }
 }
 
