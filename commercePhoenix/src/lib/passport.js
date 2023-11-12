@@ -19,7 +19,6 @@ passport.use('local.signin', new LocalStrategy({
         if (error) {
             return done(error);
         }
-
         if (rows.length > 0) {
             const user = rows[0];
             const validPassword = await helpers.matchPassword(password, user.password);
@@ -68,22 +67,3 @@ passport.deserializeUser(async (id, done) => {
     const rows = await pool.query('SELECT * FROM usuarios WHERE id = ?', [id]);
     done(null, rows[0]);
 });
-
-
-
-// import { matchPassword } from "./helpers.js";
-
-
-// passport.use('local.signup', new localStrategy({
-//     usernameField: 'username',
-//     passportField: 'password',
-//     passReqCallback: true
-// }, async (req, username, password, done) => {
-//     console.log(req.body);
-//     const { fullname, email } = req.body;
-//     let usuario = {
-//         fullname,
-//         username,
-//         email,
-//         password
-//     };
