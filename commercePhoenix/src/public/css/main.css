@@ -25,6 +25,11 @@
 }
 
 /** Navigation**/
+
+.mensaje {
+    background: var(--clr-main);
+}
+
 .navegacion {
     background: var(--clr-main);
     width: 100vw;
