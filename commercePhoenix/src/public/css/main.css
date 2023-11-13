@@ -91,19 +91,20 @@ aside {
     display: flex;
     flex-direction: column;
     gap: .5rem;
+    background-color: var(--clr-main);
 }
 
 .boton-menu {
-    background-color: transparent;
+    background-color: var(--clr-main);
     border: 0;
     color: var(--clr-white);
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 1rem;
-    font-weight: 600;
+    font-weight: 900;
     padding: 1rem;
-    font-size: .85rem;
+    font-size: .75rem;
     width: 100%;
 }
 
