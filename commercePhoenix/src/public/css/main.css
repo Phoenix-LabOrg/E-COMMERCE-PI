@@ -15,15 +15,6 @@
     font-family: 'Rubik', sans-serif;
 }
 
-.backgroundPage {
-    width: 100vw;
-    height: 100vh;
-    list-style: none;
-    display: flex;
-    background-color: var(--clr-main);
-    
-}
-
 /** Navigation**/
 
 .mensaje {
@@ -64,6 +55,15 @@ a {
     text-decoration: none;
 }
 
+.backgroundPage {
+    width: 100vw;
+    height: 100vh;
+    list-style: none;
+    display: flex;
+    background-color: var(--clr-main);
+    
+}
+
 .wrapper {
     display: grid;
     grid-template-columns: 1fr 4fr;
@@ -88,7 +88,7 @@ aside {
 }
 
 .menu {
-    display: flex;
+    display: -webkit-flex;
     flex-direction: column;
     gap: .5rem;
     background-color: var(--clr-main);
@@ -162,6 +162,7 @@ aside {
 }
 
 .texto-footer {
+    background-color: var(--clr-main);
     color: var(--clr-main-light);
     font-size: .85rem;
 }
@@ -322,6 +323,10 @@ main {
     display: none;
 }
 
+.delimitado {
+    background-color: var(--clr-main);
+}
+
 /*** MEDIA QUERIES ***/
 
 @media screen and (max-width: 850px) {
@@ -344,6 +349,9 @@ main {
         flex-direction: column;
     }
 
+    img {
+        max-width: 50%;
+    }
     aside {
         position: fixed;
         z-index: 9;
@@ -357,10 +365,26 @@ main {
     }
 
     .aside-visible {
-        height: 100vw;
+        display: flex;
+        height: 100%;
         transform: translateX(0);
         opacity: 1;
         visibility: visible;
+    }
+
+    .boton-menu {
+        background-color: var(--clr-main);
+        border: 0;
+        color: var(--clr-white);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-weight: 450;
+        padding: 1rem;
+        font-size: .45rem;
+        max-width: 80%;
+        max-height: 60%;
     }
 
     .boton-menu.active::before,
@@ -433,8 +457,6 @@ main {
         grid-template-columns: 1fr;
     }
 
-    .nav-item {
-        display: flex;
-    }
+    
 }
 
